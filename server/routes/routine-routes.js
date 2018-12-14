@@ -26,14 +26,14 @@ router.get('/routines/details/:id', (req, res, next) => {
 });
 
 router.post('/routines/add-new', (req, res, next) => {
-  console.log('dd this get called??? ',req.body)
+	console.log('dd this get called??? ', req.body);
 	Routine.create({
 		user: req.user.id,
 		dateCreated: req.body.date,
 		exercises: req.body.exercises
 	})
 		.then((response) => {
-      console.log('resonse', response)
+			console.log('resonse', response);
 			res.json(response);
 		})
 		.catch((err) => {
