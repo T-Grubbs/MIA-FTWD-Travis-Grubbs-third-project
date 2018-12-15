@@ -41,19 +41,19 @@ router.post('/routines/add-new', (req, res, next) => {
 		});
 });
 
+
+
 router.post('/routines/edit/:id', (req, res, next) => {
+	console.log("ROUTE HAPPENING")
 	Routine.findByIdAndUpdate(req.params.id, {
-		exercises: req.body.exercises
+		$push: {exercises: req.body.theExerciseToAdd}
 	})
 		.then((response) => {
-			if (response === null) {
-				res.json({ message: 'sorry we could not find this task' });
-				return;
-			}
-
+			console.log("=-=-=--=-=-=-=-=-=", response)
 			res.json([ { message: 'this task has been successfully updated' }, response ]);
 		})
 		.catch((err) => {
+			console.log("EEEEERRRRORRRR", err)
 			res.json(err);
 		});
 });

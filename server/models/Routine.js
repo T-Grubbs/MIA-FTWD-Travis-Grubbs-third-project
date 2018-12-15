@@ -6,6 +6,7 @@ const Exercise = require('../models/Exercise')
 const routineSchema = new Schema({
   
   user: {type: Schema.Types.ObjectId, ref: 'User'},
+  weekday: String,
   dateCreated: String,
   exercises: [{type: Schema.Types.ObjectId, ref: 'Exercise'}]
 
