@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Exercise = require('../models/Exercise');
+const Routine = require('../models/Routine');
 
 /* GET home page */
 router.get('/exercises', (req, res, next) => {
@@ -23,6 +24,7 @@ router.get('/exercise/details/:id', (req, res, next) => {
 			res.json(err);
 		});
 });
+
 
 // router.post('/exercises/add-new', (req, res, next)=>{
 //     Exercise.create({

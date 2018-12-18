@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const passport = require('passport');
+const Routine = require('../models/Routine');
 
 
 //-----------------USER SIGN UP ROUTER-------------------------------------|
@@ -38,11 +39,17 @@ router.post('/signup', (req, res, next) => {
 			bio: bio
 		});
 
-		theNewUser.save((err) => {
+		theNewUser.save((err, newuser) => {
 			if (err) {
 				res.json({ message: 'Saving user to database went wrong.' });
 				return;
 			}
+
+			console.log('-0-0-0-0-0-0 newuser', newuser)
+			//create a new routine for this user.  
+			Routine.create({
+				user:newuser._id
+			})
 
 			req.login(theNewUser, (err) => {
 				if (err) {
@@ -78,6 +85,7 @@ router.post('/login', (req, res, next) => {
 			}
 
 			res.json(theUser);
+			console.log(theUser)
 		});
 	})(req, res, next);
 });

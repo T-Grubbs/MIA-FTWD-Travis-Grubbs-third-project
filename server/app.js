@@ -90,7 +90,8 @@ app.use('/api', userRoutes);
 const exerciseRoutes = require('./routes/exercise-routes');
 app.use('/api', exerciseRoutes)
 
-
+const userProfile = require('./routes/profile');
+app.use('/api', userProfile)
 
 
 module.exports = app;

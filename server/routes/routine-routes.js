@@ -6,7 +6,7 @@ const Routine = require('../models/Routine');
 const User = require('../models/User');
 
 router.get('/routines', (req, res, next) => {
-	Routine.find()
+	Routine.find({user: req.user._id})
 		.then((allRoutines) => {
 			res.json(allRoutines);
 		})
@@ -18,7 +18,9 @@ router.get('/routines', (req, res, next) => {
 router.get('/routines/details/:id', (req, res, next) => {
 	Routine.findById(req.params.id)
 		.then((theRoutine) => {
+			console.log('HOHOHOHOHHOHOHOHOHOHOHOHHOHOOH')
 			res.json(theRoutine);
+
 		})
 		.catch((err) => {
 			res.json(err);
@@ -42,11 +44,38 @@ router.post('/routines/add-new', (req, res, next) => {
 });
 
 
+router.post('/routines/details/:id', (req, res, next) => {
+	console.log(req.params, req.body, req.user, "lsjdl;akjf;lakjdfajdf;")
+	Routine.findOne({user:req.user._id}, function (err, routine) {
+		console.log(routine)
+		routine.mondayRoutine.push('yooooo')
+		routine.save(function (err) {
+			if(err) {
+					console.error('ERROR!');
+			}
+		});
+	})
+		
+	//Routine.findByIdAndUpdate(req.params.id, {
+	/*	
+		$push: {sundayRoutine: 'sdabsdhb'}
+	})
+		.then((response) => {
+			console.log("=-=-=--=-=-=-=-=-=", response)
+			res.json([ { message: 'this task has been successfully updated' }, response ]);
+		})
+		.catch((err) => {
+			console.log("EEEEERRRRORRRR", err)
+			res.json(err);
+		});*/
+})
+
+
 
 router.post('/routines/edit/:id', (req, res, next) => {
 	console.log("ROUTE HAPPENING")
 	Routine.findByIdAndUpdate(req.params.id, {
-		$push: {exercises: req.body.theExerciseToAdd}
+		$push: {sundayRoutine: 'sdabsdhb'}
 	})
 		.then((response) => {
 			console.log("=-=-=--=-=-=-=-=-=", response)
