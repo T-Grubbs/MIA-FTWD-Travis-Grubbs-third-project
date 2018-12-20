@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Exercise = require('../models/Exercise');
 const Routine = require('../models/Routine');
-
 const User = require('../models/User');
 
+
 router.get('/routines', (req, res, next) => {
-	Routine.find({user: req.user._id})
+	console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=',req.user)
+	Routine.find({user: req.user._id}).populate('exercises')
 		.then((allRoutines) => {
+			console.log(allRoutines)
 			res.json(allRoutines);
 		})
 		.catch((err) => {
@@ -45,10 +47,26 @@ router.post('/routines/add-new', (req, res, next) => {
 
 
 router.post('/routines/details/:id', (req, res, next) => {
-	console.log(req.params, req.body, req.user, "lsjdl;akjf;lakjdfajdf;")
+	console.log(req.params, req.body, req.user, "in this")
 	Routine.findOne({user:req.user._id}, function (err, routine) {
 		console.log(routine)
-		routine.mondayRoutine.push('yooooo')
+		//We got all the info we need to update this routine.  Now we got to loop through the routine days, 
+		//and add exercises to days or take them out.
+		let days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+		//for(var day in days){
+		for(let d=0; d<days.length; d++){
+			let day = days[d]
+			//day = monday 
+			if(routine[day] && req.body.state[day]){ //monday is true
+				console.log(routine[day])
+				routine[day].push({
+					exerciseId:req.params.id, 
+					title:req.body.state.titleInput,
+					image: req.body.state.imageInput
+				})
+			}
+		}
+		//routine.mondayRoutine.push('yooooo')
 		routine.save(function (err) {
 			if(err) {
 					console.error('ERROR!');
@@ -72,10 +90,10 @@ router.post('/routines/details/:id', (req, res, next) => {
 
 
 
-router.post('/routines/edit/:id', (req, res, next) => {
+router.post('/routines/edit/:id/:eId', (req, res, next) => {
 	console.log("ROUTE HAPPENING")
 	Routine.findByIdAndUpdate(req.params.id, {
-		$push: {sundayRoutine: 'sdabsdhb'}
+		$push: {sundayRoutine: req.params.eId}
 	})
 		.then((response) => {
 			console.log("=-=-=--=-=-=-=-=-=", response)

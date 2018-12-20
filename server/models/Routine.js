@@ -9,13 +9,13 @@ const routineSchema = new Schema({
   weekday: String,
   dateCreated: String,
   exercises: [{type: Schema.Types.ObjectId, ref: 'Exercise'}],
-  sundayRoutine: [],
-		mondayRoutine: [],
-		tuesdayRoutine: [],
-		wednesdayRoutine: [ 'HEHEHEHEHEHEHEh' ],
-		thursdayRoutine: [],
-		fridayRoutine: [],
-		saturdayRoutine: [],
+  sunday: [],
+		monday: [],
+		tuesday: [],
+		wednesday: [ 'HEHEHEHEHEHEHEh' ],
+		thursday: [],
+		friday: [],
+		saturday: [],
 	
 
 
