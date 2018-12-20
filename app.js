@@ -81,8 +81,7 @@ app.use(cors({
 }));
 
 
-const index = require('./routes/index');
-app.use('/', index);
+
 
 const routineRoutes = require('./routes/routine-routes');
 app.use('/api', routineRoutes);
