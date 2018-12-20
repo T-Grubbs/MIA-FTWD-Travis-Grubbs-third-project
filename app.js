@@ -17,7 +17,7 @@ require('./config/passport')
 
 
 
-
+// mongodb://heroku_jlrlddrt:lqb1d6g3ndmhlamv96vpqpog99@ds139944.mlab.com:39944/heroku_jlrlddrt
 
 
 
@@ -77,7 +77,7 @@ app.use(passport.session());
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000', 'http://192.168.125.181:3000']
+  origin: ['http://localhost:3000', '']
 }));
 
 
@@ -95,6 +95,11 @@ app.use('/api', exerciseRoutes)
 
 const userProfile = require('./routes/profile');
 app.use('/api', userProfile)
+
+app.use((req, res, next)=>{
+  res.sendFile(__dirname + '/public/index.html');
+});
+
 
 
 module.exports = app;
