@@ -71,6 +71,7 @@ router.post('/routines/details/:id', (req, res, next) => {
 			if(err) {
 					console.error('ERROR!');
 			}
+			res.json({succesfullySaved:true})
 		});
 	})
 		
@@ -105,15 +106,15 @@ router.post('/routines/edit/:id/:eId', (req, res, next) => {
 		});
 });
 
-router.post('/routines/delete/:id', (req, res, next) => {
-	Routine.findByIdAndRemove(req.params.id)
-		.then((deletedRoutine) => {
-			if (deletedRoutine === null) {
-				res.json({ message: 'sorry routine could not be found' });
-				return;
-			}
+router.post('/routines/delete/', (req, res, next) => {
+	console.log(req.body, req.params, req.user, 'adsfadsfasdfasdfdf')
+	Routine.findOne({user:req.user._id})
+		.then((editedRoutine) => {
 
-			res.json([ { message: 'Routine deleted' }, deletedRoutine ]);
+			console.log(editedRoutine)
+			editedRoutine[req.body.day] = []
+			editedRoutine.save()
+			res.json([ { message: 'Routine editedRoutine' }, editedRoutine ]);
 		})
 		.catch((err) => {
 			res.json(err);
