@@ -77,7 +77,7 @@ app.use(passport.session());
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000', 'http://gymfleux.surge.sh', '*', 'http://thegymfleux.surge.sh']
+  origin: ['http://localhost:3000', 'http://gymfleux.surge.sh', '*', 'http://thegymfleux.surge.sh' , 'http://thegymfluex.surge.sh']
 }));
 
 
