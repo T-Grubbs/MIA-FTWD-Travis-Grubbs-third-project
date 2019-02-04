@@ -45,7 +45,7 @@ router.post('/signup', (req, res, next) => {
 				return;
 			}
 
-			console.log('-0-0-0-0-0-0 newuser', newuser)
+			console.log('the new user', newuser)
 			//create a new routine for this user.  
 			Routine.create({
 				user:newuser._id
