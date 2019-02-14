@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express      = require('express');
@@ -10,16 +9,10 @@ const logger       = require('morgan');
 const path         = require('path');
 const session       = require('express-session');
 const passport      = require('passport');
-
 const cors = require('cors');
 require('./config/passport')
 
-
-
-
 // mongodb://heroku_jlrlddrt:lqb1d6g3ndmhlamv96vpqpog99@ds139944.mlab.com:39944/heroku_jlrlddrt
-
-
 
 mongoose.Promise = Promise;
 mongoose
@@ -98,7 +91,5 @@ app.use('/api', userProfile)
 app.use((req, res, next)=>{
   res.sendFile(__dirname + '/public/index.html');
 });
-
-
 
 module.exports = app;

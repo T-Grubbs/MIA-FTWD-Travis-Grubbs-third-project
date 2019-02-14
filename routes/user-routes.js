@@ -63,12 +63,12 @@ router.post('/signup', (req, res, next) => {
 	});
 });
 
-
+//-------------------USER LOGIN METHOD-------------------------------
 
 router.post('/login', (req, res, next) => {
 	passport.authenticate('local', (err, theUser, failureDetails) => {
 		if (err) {
-			res.json({ message: 'Something went wrong authenticating user' });
+			res.json({ message: 'SOMETHING WENT WRONG AUTHENTICATING THE USER' });
 			return;
 		}
 
@@ -80,7 +80,7 @@ router.post('/login', (req, res, next) => {
 	
 		req.login(theUser, (err) => {
 			if (err) {
-				res.json({ message: 'Session save went bad.' });
+				res.json({ message: 'SESSION SAVE WENT BAD' });
 				return;
 			}
 
@@ -90,9 +90,11 @@ router.post('/login', (req, res, next) => {
 	})(req, res, next);
 });
 
+//-------------USER LOGUT METHOD-------------------
+
 router.post('/logout', (req, res, next) => {
 	req.logout();
-	res.json({ message: 'Log out success!' });
+	res.json({ message: 'LOG OUT SUCCESS' });
 });
 
 router.get('/loggedin', (req, res, next) => {
@@ -100,7 +102,7 @@ router.get('/loggedin', (req, res, next) => {
 		res.json(req.user);
 		return;
 	}
-	res.status(500).json({ message: 'Unauthorized' });
+	res.status(500).json({ message: 'UNAUTHORIZED' });
 });
 
 module.exports = router;
